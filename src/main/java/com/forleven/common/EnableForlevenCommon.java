@@ -11,6 +11,7 @@ import com.forleven.common.i18n.MessageUtil;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
+@EnableJpaAuditing
 @Import({MessageUtil.class, ExceptionHandlerController.class})
 public @interface EnableForlevenCommon {
 }
