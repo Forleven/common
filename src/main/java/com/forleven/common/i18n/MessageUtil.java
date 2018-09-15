@@ -1,5 +1,7 @@
 package com.forleven.common.i18n;
 
+import io.vavr.control.Try;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -12,11 +14,13 @@ public class MessageUtil {
     private MessageSource messageSource;
 
     public String getMessage(String code) {
-        return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
+        return Try.of(() -> messageSource.getMessage(code, null, LocaleContextHolder.getLocale()))
+                .getOrElse(code);
     }
 
     public String getMessage(String code, Object[] args) {
-        return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+        return Try.of(() -> messageSource.getMessage(code, args, LocaleContextHolder.getLocale()))
+                .getOrElse(code);
     }
 
 }
