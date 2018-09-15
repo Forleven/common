@@ -3,6 +3,7 @@ package com.forleven.common;
 import java.lang.annotation.*;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.forleven.common.exception.ExceptionHandlerController;
 import com.forleven.common.i18n.MessageUtil;
@@ -11,6 +12,7 @@ import com.forleven.common.i18n.MessageUtil;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
+@EnableJpaAuditing
 @Import({MessageUtil.class, ExceptionHandlerController.class})
 public @interface EnableForlevenCommon {
 }
