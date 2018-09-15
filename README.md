@@ -14,3 +14,18 @@ Forleven common libraries for Spring and the JVM
 - `com.forleven.common.sqs`: A simple model to send/receive entities inside AWS SQS
 - `com.forleven.common.validation`: Convert bean validations errors to Forleven way JSON
 - `com.forleven.common.web`: Forleven way to return entities, errors, links, pagination.
+
+# Libraries
+
+- *vavr*: Try a way more functional programming http://www.vavr.io
+- *spring-data-jpa*: This commons is to write APIs with relational databases https://projects.spring.io/spring-data-jpa/
+- *spring-cloud-starter-netflix-hystrix*: Think about errors and which paths to fix https://spring.io/guides/gs/circuit-breaker/
+- *spring-cloud-starter-openfeign*: Simple REST client to other services or external APIs to integration https://www.baeldung.com/intro-to-feign
+- *lombok*: Please forget to write getter/setter and equals methods https://projectlombok.org
+
+# IDE Plugins
+
+- https://github.com/izhangzhihao/intellij-rainbow-brackets
+- https://plugins.jetbrains.com/plugin/6317-lombok-plugin
+- https://plugins.jetbrains.com/plugin/1065-checkstyle-idea
+- https://plugins.jetbrains.com/plugin/7973-sonarlint
