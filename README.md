@@ -29,3 +29,7 @@ Forleven common libraries for Spring and the JVM
 - https://plugins.jetbrains.com/plugin/6317-lombok-plugin
 - https://plugins.jetbrains.com/plugin/1065-checkstyle-idea
 - https://plugins.jetbrains.com/plugin/7973-sonarlint
+
+# Example
+
+Using a some features of common https://github.com/Forleven/basic-microservice-example
