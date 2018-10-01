@@ -83,6 +83,16 @@
 			<artifactId>vavr</artifactId>
 			<version>0.9.2</version>
 		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
 
 		<dependency>
 		    <groupId>org.awaitility</groupId>
@@ -120,5 +130,36 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-jpamodelgen</artifactId>
+						<version>${hibernate.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

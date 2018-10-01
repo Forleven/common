@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.forleven.common.exception.ExceptionHandlerController;
 import com.forleven.common.i18n.MessageUtil;
+import com.forleven.common.validation.FormErrors;
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 @EnableJpaAuditing
-@Import({MessageUtil.class, ExceptionHandlerController.class})
+@Import({MessageUtil.class, ExceptionHandlerController.class, FormErrors.class})
 public @interface EnableForlevenCommon {
 }

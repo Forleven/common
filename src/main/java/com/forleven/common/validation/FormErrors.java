@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -22,6 +23,7 @@ public class FormErrors {
     @Autowired
     private MessageUtil messageUtil;
 
+    @Deprecated
     public ResourceErrors beanValidation(BindingResult bindingResult) {
 
         List<ObjectError> allErrors = bindingResult.getAllErrors();
@@ -33,4 +35,10 @@ public class FormErrors {
 
         return new ResourceErrors(errors);
     }
+
+    public ResponseEntity<ResourceErrors> validationsToResponse(BindingResult bindingResult) {
+        return ResponseEntity.badRequest().body(beanValidation(bindingResult));
+    }
+
+
 }
