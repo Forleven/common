@@ -1,6 +1,7 @@
 package com.forleven.common.web;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +49,41 @@ public class ResourcesTests {
         assertEquals(
                 mapper.writeValueAsString(expectedJson),
                 mapper.writeValueAsString(resources)
+        );
+    }
+
+    @Test
+    public void testSimpleInstanceResourcesWithStream() {
+        Resources<String> resources = new Resources<>(new PageImpl<>(Collections.singletonList("management")));
+
+        // in real world here is a code with business logic
+        String firstResource = resources.stream()
+                .map(String::toUpperCase)
+                .findFirst()
+                .orElse("");
+
+        assertEquals(
+                "MANAGEMENT",
+                firstResource
+        );
+    }
+
+    /**
+     * If you return a Optional<Resources<String>>, this static method help you if you want you orElse methods.
+     * <pre>
+     * {@code
+     *  Optional<Resources<String>> businessNullable = someProcess();
+     *  businessNullable.orElse(Resources.empty())
+     * }
+     * </pre>
+     */
+    @Test
+    public void testSimpleInstanceResourcesEmpty() {
+        Resources<String> emptyResources = Resources.empty();
+
+        assertEquals(
+                0,
+                emptyResources.getSize()
         );
     }
 

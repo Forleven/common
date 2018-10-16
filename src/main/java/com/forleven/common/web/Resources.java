@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +39,10 @@ public class Resources<T> implements Iterable<T> {
 
     @JsonIgnore
     private final Page<T> page;
+
+    static <T> Resources<T> empty() {
+        return new Resources<>(Page.empty());
+    }
 
     /**
      * Resources class inspiration in Spring HAL. Follow Reference in github of spring
@@ -97,6 +103,16 @@ public class Resources<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return data.iterator();
+    }
+
+    @JsonIgnore
+    public Stream<T> stream() {
+        return StreamSupport.stream(this.spliterator(), false);
+    }
+
+    @JsonIgnore
+    public int getSize() {
+        return this.page.getSize();
     }
 }
 
