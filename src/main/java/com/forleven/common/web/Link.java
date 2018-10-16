@@ -20,6 +20,7 @@ import org.springframework.web.util.UriTemplate;
  * Value object for links.
  * @see <a href="https://github.com/spring-projects/spring-hateoas/blob/master/src/main/java/org/springframework/hateoas/Link.java">Reference in Github</a>
  */
+@Deprecated
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
