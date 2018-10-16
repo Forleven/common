@@ -5,7 +5,7 @@
 
 	<groupId>com.forleven</groupId>
 	<artifactId>common</artifactId>
-	<version>2018.09</version>
+	<version>2018.10</version>
 	<packaging>jar</packaging>
 
 	<name>common</name>
