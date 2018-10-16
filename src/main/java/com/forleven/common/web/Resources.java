@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Wither;
 
+import io.vavr.control.Try;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -50,16 +52,18 @@ public class Resources<T> implements Iterable<T> {
         this.count = this.data.size();
         this.links = new Links();
 
-        links.setFirst(buildPageLink(1));
-        links.setLast(buildPageLink(page.getTotalPages()));
-        links.setSelf(buildPageLink(page.getNumber() + 1));
+        buildPageLink(1).forEach(links::setFirst);
+
+        buildPageLink(page.getTotalPages()).forEach(links::setLast);
+
+        buildPageLink(page.getNumber() + 1).forEach(links::setSelf);
 
         if(page.hasPrevious()) {
-            links.setPrevious(buildPageLink(page.previousPageable().getPageNumber() + 1));
+            buildPageLink(page.previousPageable().getPageNumber() + 1).forEach(links::setPrevious);
         }
 
         if(page.hasNext()) {
-            links.setNext(buildPageLink(page.nextPageable().getPageNumber() + 1));
+            buildPageLink(page.nextPageable().getPageNumber() + 1).forEach(links::setNext);
         }
     }
 
@@ -67,13 +71,15 @@ public class Resources<T> implements Iterable<T> {
         return ServletUriComponentsBuilder.fromCurrentRequestUri();
     }
 
-    private Link buildPageLink(int page) {
-        String path = createBuilder()
-                .queryParam("page", page)
-                .build()
-                .toUriString();
+    private Try<Link> buildPageLink(int page) {
+        return Try.of(() -> {
+            String path = createBuilder()
+                    .queryParam("page", page)
+                    .build()
+                    .toUriString();
 
-        return new Link(path, page);
+            return new Link(path, page);
+        });
     }
 
     @Override
