@@ -30,7 +30,7 @@ public class Resources<T> implements Iterable<T> {
     private final List<T> data;
 
     @JsonProperty("links")
-    private final ResourcesLinks links;
+    private final Links links;
 
     @JsonIgnore
     private final Page<T> page;
@@ -48,7 +48,7 @@ public class Resources<T> implements Iterable<T> {
         this.page = page;
         this.data = page.getContent();
         this.count = this.data.size();
-        this.links = new ResourcesLinks();
+        this.links = new Links();
 
         links.setFirst(buildPageLink(1));
         links.setLast(buildPageLink(page.getTotalPages()));
@@ -67,13 +67,13 @@ public class Resources<T> implements Iterable<T> {
         return ServletUriComponentsBuilder.fromCurrentRequestUri();
     }
 
-    private ResourcesLink buildPageLink(int page) {
+    private Link buildPageLink(int page) {
         String path = createBuilder()
                 .queryParam("page", page)
                 .build()
                 .toUriString();
 
-        return new ResourcesLink(path, page);
+        return new Link(path, page);
     }
 
     @Override

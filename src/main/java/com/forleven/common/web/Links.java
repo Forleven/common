@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResourcesLinks {
-    private ResourcesLink last;
-    private ResourcesLink self;
-    private ResourcesLink first;
-    private ResourcesLink previous;
-    private ResourcesLink next;
+public class Links {
+    private Link last;
+    private Link self;
+    private Link first;
+    private Link previous;
+    private Link next;
 }
