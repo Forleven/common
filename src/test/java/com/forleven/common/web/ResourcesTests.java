@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static com.forleven.common.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
