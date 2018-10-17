@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class jsonMoneyFormatTests {
+public class JsonMoneyFormatTests {
 
     @AllArgsConstructor
     @NoArgsConstructor
