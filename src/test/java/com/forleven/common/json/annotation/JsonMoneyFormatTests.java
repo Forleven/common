@@ -26,9 +26,14 @@ public class JsonMoneyFormatTests {
     @Data
     public static class Sample {
 
+        @JsonProperty("price")
+        private BigDecimal price;
+
         @JsonProperty("price_formatted")
         @JsonMoneyFormat
-        private BigDecimal priceFormatted;
+        public BigDecimal priceFormatted() {
+            return price;
+        }
     }
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -38,23 +43,38 @@ public class JsonMoneyFormatTests {
 
         String json = mapper.writeValueAsString(new Sample(BigDecimal.TEN));
 
+        String expectedJson = mapper.writeValueAsString(ImmutableMap.of(
+                "price", BigDecimal.TEN,
+                "price_formatted", "BRL10.00"
+        ));
+
         assertEquals(
                 json,
-                mapper.writeValueAsString(ImmutableMap.of("price_formatted", "BRL10.00"))
+                expectedJson
         );
 
         String json1 = mapper.writeValueAsString(new Sample(BigDecimal.valueOf(101_121.11111)));
 
+        String expectedJson1 = mapper.writeValueAsString(ImmutableMap.of(
+                "price", BigDecimal.valueOf(101_121.11111),
+                "price_formatted", "BRL101,121.11"
+        ));
+
         assertEquals(
                 json1,
-                mapper.writeValueAsString(ImmutableMap.of("price_formatted", "BRL101,121.11"))
+                expectedJson1
         );
 
-        String json2 = mapper.writeValueAsString(new Sample(BigDecimal.TEN));
+        String json2 = mapper.writeValueAsString(new Sample(BigDecimal.ZERO));
+
+        String expectedJson2 = mapper.writeValueAsString(ImmutableMap.of(
+                "price", 0,
+                "price_formatted", "BRL0.00"
+        ));
 
         assertEquals(
                 json2,
-                mapper.writeValueAsString(ImmutableMap.of("price_formatted", "BRL10.00"))
+                expectedJson2
         );
     }
 }
