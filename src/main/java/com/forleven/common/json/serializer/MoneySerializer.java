@@ -1,4 +1,4 @@
-package com.forleven.common.json;
+package com.forleven.common.json.serializer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
