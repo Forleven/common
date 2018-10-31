@@ -26,7 +26,6 @@ class SampleIntegrationController {
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@SpringBootConfiguration
 public class ControllerLinkBuilderTests {
 
     @Test
