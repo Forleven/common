@@ -24,13 +24,13 @@ public abstract class LogFields implements Serializable {
 
     @ApiModelProperty(hidden = true)
     @CreatedDate
-    @Column(name="create_date", updatable = false)
+    @Column(name = "create_date", updatable = false)
     @JsonProperty("create_date")
     private Date createDate = new Date();
 
     @ApiModelProperty(hidden = true)
     @LastModifiedDate
-    @Column(name="update_date", insertable = false)
+    @Column(name = "update_date", insertable = false)
     @JsonProperty("update_date")
     private Date updateDate = new Date();
 

@@ -1,23 +1,24 @@
 package com.forleven.common.web;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Wither;
 
+import io.vavr.control.Try;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.google.common.collect.ImmutableMap;
 
 import org.springframework.data.domain.Page;
-import org.springframework.util.Assert;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import static com.forleven.common.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 
 @Data
@@ -33,10 +34,14 @@ public class Resources<T> implements Iterable<T> {
     private final List<T> data;
 
     @JsonProperty("links")
-    private final List<Link> links = new ArrayList<>();
+    private final Links links;
 
     @JsonIgnore
     private final Page<T> page;
+
+    static <T> Resources<T> empty() {
+        return new Resources<>(Page.empty());
+    }
 
     /**
      * Resources class inspiration in Spring HAL. Follow Reference in github of spring
@@ -47,27 +52,20 @@ public class Resources<T> implements Iterable<T> {
         this.page = page;
         this.data = page.getContent();
         this.count = this.data.size();
+        this.links = new Links();
 
-        add(buildPageLink(1, Link.REL_FIRST));
-        add(buildPageLink(page.getTotalPages(), Link.REL_LAST));
-        add(buildPageLink(page.getNumber() + 1,  Link.REL_SELF));
+        buildPageLink(1).forEach(links::setFirst);
+
+        buildPageLink(page.getTotalPages()).forEach(links::setLast);
+
+        buildPageLink(page.getNumber() + 1).forEach(links::setSelf);
 
         if(page.hasPrevious()) {
-            String path = createBuilder()
-                    .queryParam("page",page.previousPageable().getPageNumber() + 1)
-                    .build()
-                    .toUriString();
-
-            add(new Link(path, Link.REL_PREVIOUS));
+            buildPageLink(page.previousPageable().getPageNumber() + 1).forEach(links::setPrevious);
         }
 
         if(page.hasNext()) {
-            String path = createBuilder()
-                    .queryParam("page",page.nextPageable().getPageNumber() + 1)
-                    .build()
-                    .toUriString();
-
-            add(new Link(path, Link.REL_NEXT));
+            buildPageLink(page.nextPageable().getPageNumber() + 1).forEach(links::setNext);
         }
     }
 
@@ -75,28 +73,30 @@ public class Resources<T> implements Iterable<T> {
         return ServletUriComponentsBuilder.fromCurrentRequestUri();
     }
 
-    private Link buildPageLink(int page, String rel) {
-        String path = createBuilder()
-                .queryParam("page", page)
-                .build()
-                .toUriString();
+    private Try<Link> buildPageLink(int page) {
+        return Try.of(() -> {
+            String path = createBuilder()
+                    .queryParam("page", page)
+                    .build()
+                    .toUriString();
 
-        return new Link(path,rel);
-    }
-
-    private void add(Link link) {
-        Assert.notNull(link, "Link must not be null!");
-        this.links.add(link);
-    }
-
-    public Map<String, Map<String, String>> getLinks() {
-        return links.stream()
-                .collect(Collectors.toMap(Link::getRel, link -> ImmutableMap.of("href", link.getHref())));
+            return new Link(path, page);
+        });
     }
 
     @Override
     public Iterator<T> iterator() {
         return data.iterator();
+    }
+
+    @JsonIgnore
+    public Stream<T> stream() {
+        return StreamSupport.stream(this.spliterator(), false);
+    }
+
+    @JsonIgnore
+    public int getSize() {
+        return this.page.getSize();
     }
 }
 
