@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@SpringBootConfiguration
 public class ResourcesIntegrationTests {
 
     private ObjectMapper mapper = new ObjectMapper();
