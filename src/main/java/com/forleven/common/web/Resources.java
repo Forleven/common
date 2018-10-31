@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import org.springframework.data.domain.Page;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import static com.forleven.common.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 
 @Data
 @Wither
