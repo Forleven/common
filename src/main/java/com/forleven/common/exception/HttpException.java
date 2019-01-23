@@ -9,16 +9,16 @@ public class HttpException extends RuntimeException {
 
     private final String[] args;
 
-    HttpException() {
+    public HttpException() {
         this.args = new String[]{};
     }
 
-    HttpException(String codeError) {
+    public HttpException(String codeError) {
         super(codeError);
         this.args = new String[]{};
     }
 
-    HttpException(String codeError,
+    public HttpException(String codeError,
                   String... args) {
         super(codeError);
         this.args = args;
