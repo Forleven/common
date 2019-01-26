@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.PageImpl;
 
-import static com.forleven.common.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
