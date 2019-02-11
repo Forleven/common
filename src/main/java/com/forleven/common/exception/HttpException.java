@@ -1,5 +1,7 @@
 package com.forleven.common.exception;
 
+import java.util.Arrays;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +24,11 @@ public class HttpException extends RuntimeException {
                   String... args) {
         super(codeError);
         this.args = args;
+    }
+
+    @Override
+    public String toString() {
+        return "HttpException(message=" + getMessage() + ", args=" + Arrays.deepToString(this.getArgs()) + ")";
     }
 
 }
