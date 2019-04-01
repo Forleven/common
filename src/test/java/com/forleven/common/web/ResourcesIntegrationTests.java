@@ -28,7 +28,7 @@ public class ResourcesIntegrationTests {
         PageImpl<String> fakePage = new PageImpl<>(Arrays.asList("school", "education", "learn more"));
 
         ImmutableMap<String, Object> href = ImmutableMap.of(
-                "href", "http://localhost?page=1",
+                "href", "https://localhost?page=1",
                 "number", 1
         );
 
@@ -64,12 +64,12 @@ public class ResourcesIntegrationTests {
         );
 
         ImmutableMap<String, Object> href = ImmutableMap.of(
-                "href", "http://localhost?page=1",
+                "href", "https://localhost?page=1",
                 "number", 1
         );
 
         ImmutableMap<String, Object> hrefNext = ImmutableMap.of(
-                "href", "http://localhost?page=2",
+                "href", "https://localhost?page=2",
                 "number", 2
         );
 
@@ -106,12 +106,12 @@ public class ResourcesIntegrationTests {
         );
 
         ImmutableMap<String, Object> href = ImmutableMap.of(
-                "href", "http://localhost?page=2",
+                "href", "https://localhost?page=2",
                 "number", 2
         );
 
         ImmutableMap<String, Object> hrefPrevious = ImmutableMap.of(
-                "href", "http://localhost?page=1",
+                "href", "https://localhost?page=1",
                 "number", 1
         );
 
@@ -148,27 +148,27 @@ public class ResourcesIntegrationTests {
         );
 
         ImmutableMap<String, Object> hrefLast = ImmutableMap.of(
-                "href", "http://localhost?page=3",
+                "href", "https://localhost?page=3",
                 "number", 3
         );
 
         ImmutableMap<String, Object> hrefSelf = ImmutableMap.of(
-                "href", "http://localhost?page=2",
+                "href", "https://localhost?page=2",
                 "number", 2
         );
 
         ImmutableMap<String, Object> hrefFirst = ImmutableMap.of(
-                "href", "http://localhost?page=1",
+                "href", "https://localhost?page=1",
                 "number", 1
         );
 
         ImmutableMap<String, Object> hrefPrevious = ImmutableMap.of(
-                "href", "http://localhost?page=1",
+                "href", "https://localhost?page=1",
                 "number", 1
         );
 
         ImmutableMap<String, Object> hrefNext = ImmutableMap.of(
-                "href", "http://localhost?page=3",
+                "href", "https://localhost?page=3",
                 "number", 3
         );
 
