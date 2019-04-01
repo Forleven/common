@@ -2,6 +2,8 @@ package com.forleven.common.web;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -16,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import org.springframework.data.domain.Page;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
@@ -73,8 +76,18 @@ public class Resources<T> implements Iterable<T> {
 
     private Try<Link> buildPageLink(int page) {
         return Try.of(() -> {
+
+            Map<String, List<String>> collect = ServletUriComponentsBuilder.fromCurrentRequest().build()
+                    .getQueryParams()
+                    .entrySet()
+                    .stream()
+                    .filter(args -> !args.getKey().equalsIgnoreCase("page"))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
             String path = createBuilder()
                     .queryParam("page", page)
+                    .queryParams(new LinkedMultiValueMap<>(collect))
+                    .scheme("https")
                     .build()
                     .toUriString();
 
