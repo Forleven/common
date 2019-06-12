@@ -31,7 +31,7 @@ public class UploadUtilTests {
     private UploadUtil uploadUtil;
 
     @Test
-    public void test_image_store_with_success() throws IOException {
+    public void testImageStoreWithSuccess() throws IOException {
 
         // GIVEN - a file
 
@@ -78,7 +78,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_image_store_with_filename_empty() throws IOException {
+    public void testImageStoreWithFilenameEmpty() throws IOException {
 
         // GIVEN - a file with invalid mime type
 
@@ -125,7 +125,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_image_store_with_content_type_empty() throws IOException {
+    public void testImageStoreWithContentTypeEmpty() throws IOException {
 
         // GIVEN - a file with invalid mime type
 
@@ -157,7 +157,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_image_store_with_mime_type_invalid() throws IOException {
+    public void testImageStoreWithMimeTypeInvalid() throws IOException {
 
         // GIVEN - a file with invalid mime type
 
@@ -189,7 +189,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_store_with_success() throws IOException {
+    public void testStoreWithSuccess() throws IOException {
 
         // GIVEN - a file
 
@@ -251,7 +251,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_store_with_filename_empty() throws IOException {
+    public void testStoreWithFilenameEmpty() throws IOException {
 
         // GIVEN - a file
 
@@ -300,7 +300,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_store_with_filename_invalid() throws IOException {
+    public void testStoreWithFilenameInvalid() throws IOException {
 
         // GIVEN - a file
 
@@ -348,7 +348,7 @@ public class UploadUtilTests {
     }
 
     @Test
-    public void test_store_with_bucket_invalid_name() throws IOException {
+    public void testStoreWithBucketInvalidName() throws IOException {
 
         // GIVEN - a file
 

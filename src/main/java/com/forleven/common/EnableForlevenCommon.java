@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.forleven.common.exception.ExceptionHandlerController;
 import com.forleven.common.i18n.MessageUtil;
+import com.forleven.common.s3.UploadDsl;
 import com.forleven.common.validation.FormErrors;
 
 @Target({ElementType.TYPE})
@@ -14,6 +15,11 @@ import com.forleven.common.validation.FormErrors;
 @Documented
 @Inherited
 @EnableJpaAuditing
-@Import({MessageUtil.class, ExceptionHandlerController.class, FormErrors.class})
+@Import({
+        MessageUtil.class,
+        ExceptionHandlerController.class,
+        FormErrors.class,
+        UploadDsl.class
+})
 public @interface EnableForlevenCommon {
 }
