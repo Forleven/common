@@ -1,6 +1,5 @@
 package com.forleven.common.ses;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;

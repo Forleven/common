@@ -2,8 +2,6 @@ package com.forleven.common.s3;
 
 import java.util.Arrays;
 
-import lombok.Builder;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import io.vavr.control.Either;

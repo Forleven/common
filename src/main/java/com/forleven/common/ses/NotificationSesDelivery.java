@@ -9,8 +9,6 @@ import lombok.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import org.joda.time.DateTime;
-
 @AllArgsConstructor
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
