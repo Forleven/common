@@ -5,6 +5,7 @@ import lombok.Data;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
+import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.StringUtils;
@@ -28,13 +29,19 @@ public class UploadDsl {
     @Nullable
     public String getFilename() {
 
-        if (!StringUtils.isEmpty(filename)) {
-            return filename;
-        }
-
         // builder produce file = null
         if (file == null) {
             return null;
+        }
+
+        if (!StringUtils.isEmpty(filename) && !StringUtils.isEmpty(FilenameUtils.getExtension(filename))) {
+            return filename;
+        }
+
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+        if (!StringUtils.isEmpty(filename)) {
+            return filename + "." + extension;
         }
 
         return file.getOriginalFilename();

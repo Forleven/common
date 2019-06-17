@@ -2,12 +2,15 @@ package com.forleven.common.s3;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.UUID;
 
 import io.vavr.control.Either;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +58,7 @@ public class UploadUtilTests {
         UploadDsl dsl1 = UploadDsl.builder()
                 .bucketName("common-bucket")
                 .file(file)
-                .filename("another-filename")
+                .filename(UUID.randomUUID() + DateTimeFormat.forPattern("yyMMddhhmmss").print(new DateTime()))
                 .build();
 
         Either<UploadError, MultipartFile> imageStoreResult1 = uploadUtil.imageStore(dsl1);

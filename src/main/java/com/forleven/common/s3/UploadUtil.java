@@ -75,7 +75,7 @@ public class UploadUtil {
                 .toEither()
                 .mapLeft(error -> UploadError.ERROR_IN_PROGRESS)
                 .map(result -> {
-                    log.info("Success in store");
+                    log.info("Success in store '{}/{}'", bucketName, filename);
                     return file;
                 });
     }
