@@ -47,7 +47,6 @@ public class UploadDsl {
         return file.getOriginalFilename();
     }
 
-    @Nullable
     public ObjectMetadata getMetadata() {
 
         if (!StringUtils.isEmpty(metadata)) {

@@ -1,5 +1,6 @@
 package com.forleven.common.s3;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import io.vavr.control.Try;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.util.IOUtils;
 
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +73,15 @@ public class UploadUtil {
             return Either.left(UploadError.INVALID_FILENAME);
         }
 
-        return Try.of(() -> s3client.putObject(bucketName, filename, file.getInputStream(), metadata))
+        return Try.of(() -> {
+
+            byte[] bytes = IOUtils.toByteArray(file.getInputStream());
+
+            metadata.setContentLength(bytes.length);
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+            return s3client.putObject(bucketName, filename, byteArrayInputStream, metadata);
+        })
                 .toEither()
                 .mapLeft(error -> UploadError.ERROR_IN_PROGRESS)
                 .map(result -> {
