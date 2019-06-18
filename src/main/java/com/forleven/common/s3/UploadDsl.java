@@ -3,6 +3,7 @@ package com.forleven.common.s3;
 import lombok.Builder;
 import lombok.Data;
 
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 import org.apache.commons.io.FilenameUtils;
@@ -25,6 +26,9 @@ public class UploadDsl {
 
     @NotNull
     private ObjectMetadata metadata;
+
+    @Builder.Default
+    private CannedAccessControlList cannedAcl = CannedAccessControlList.Private;
 
     @Nullable
     public String getFilename() {

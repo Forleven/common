@@ -10,6 +10,7 @@ import io.vavr.control.Try;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 
 import org.apache.commons.io.FilenameUtils;
@@ -73,17 +74,26 @@ public class UploadUtil {
             return Either.left(UploadError.INVALID_FILENAME);
         }
 
-        return Try.of(() -> {
+        return Try
+                .of(() -> {
 
-            byte[] bytes = IOUtils.toByteArray(file.getInputStream());
+                    byte[] bytes = IOUtils.toByteArray(file.getInputStream());
 
-            metadata.setContentLength(bytes.length);
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+                    metadata.setContentLength(bytes.length);
+                    metadata.setContentType(file.getContentType());
 
-            return s3client.putObject(bucketName, filename, byteArrayInputStream, metadata);
-        })
+                    return s3client.putObject(new PutObjectRequest(
+                            bucketName,
+                            filename,
+                            new ByteArrayInputStream(bytes),
+                            metadata
+                    ).withCannedAcl(uploadDsl.getCannedAcl()));
+                })
                 .toEither()
-                .mapLeft(error -> UploadError.ERROR_IN_PROGRESS)
+                .mapLeft(error -> {
+                    log.error(error.getMessage());
+                    return UploadError.ERROR_IN_PROGRESS;
+                })
                 .map(result -> {
                     log.info("Success in store '{}/{}'", bucketName, filename);
                     return file;
