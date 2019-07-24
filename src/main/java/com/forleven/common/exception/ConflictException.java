@@ -1,5 +1,8 @@
 package com.forleven.common.exception;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = true)
 public class ConflictException extends HttpException {
 
     public ConflictException() {

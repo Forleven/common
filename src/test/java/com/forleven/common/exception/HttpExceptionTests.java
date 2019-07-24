@@ -17,6 +17,19 @@ public class HttpExceptionTests {
                 new BadRequestException("message"),
                 new NotFoundException("message")
         );
+
+        assertNotEquals(
+                new BadRequestException("message"),
+                new NotFoundException("message1")
+        );
+    }
+
+    @Test
+    public void test_equal_exceptions() {
+        assertEquals(
+                new NotFoundException("message"),
+                new NotFoundException("message")
+        );
     }
 
 }
