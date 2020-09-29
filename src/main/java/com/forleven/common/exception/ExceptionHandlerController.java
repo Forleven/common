@@ -58,4 +58,13 @@ public class ExceptionHandlerController {
                 new ResponseError(e.getMessage(), messageUtil.getMessage(e.getMessage(), e.getArgs()))
         ));
     }
+
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ResourceErrors responseError(ForbiddenException e) {
+        return new ResourceErrors(Collections.singletonList(
+                new ResponseError(e.getMessage(), messageUtil.getMessage(e.getMessage(), e.getArgs()))
+        ));
+    }
 }
