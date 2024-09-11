@@ -25,8 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class UploadUtil {
 
-    @Autowired
-    private AmazonS3 s3client;
+    private final AmazonS3 s3client;
+
+    public UploadUtil(AmazonS3 s3client) {
+        this.s3client = s3client;
+    }
 
     public Either<UploadError, MultipartFile> imageStore(@NotNull UploadDsl uploadDsl) {
 
@@ -42,7 +45,8 @@ public class UploadUtil {
             return Either.left(UploadError.EMPTY_CONTENT_TYPE);
         }
 
-        boolean isInvalidImage = !Arrays.asList("image/jpeg", "image/png", "image/gif").contains(uploadDsl.getFile().getContentType());
+        boolean isInvalidImage = !Arrays.asList("image/jpeg", "image/png", "image/gif", "image/webp")
+                .contains(uploadDsl.getFile().getContentType());
 
         if (isInvalidImage) {
             log.info("Image mime type invalid");
