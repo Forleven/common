@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\code\\\\forleven\" -Recurse -Filter \"pom.xml\" | Select-String -Pattern \"common\" | Where-Object { $_.Line -match \"artifactId|version\" } | Select-Object Path, Line)",
+      "PowerShell(New-Item *)"
+    ]
+  }
+}
